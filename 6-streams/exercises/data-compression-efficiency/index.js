@@ -3,11 +3,6 @@
  * it using the different algorithms available in the zlib module (Brotli, Deflate, Gzip).
  * You want to produce a summary table that compares the algorithm's compression time and
  * compression efficiency.
- *
- * STEPS:
- * 1. fork file compression into multiple write streams
- * 2. calculate the time how long each compression took
- * 3. calculate the difference in size between the original and compressed file
  */
 
 const fs = require("fs");
