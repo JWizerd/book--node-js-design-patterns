@@ -12,7 +12,7 @@ module.exports = (filename, algorithmName) => {
 
   monitor.on("data", (chunk) => {
     compressedFileSize += chunk.length
-    stats.compressionPercentage = (compressedFileSize / originalFileSize * 100);
+    stats.compressionPercentage = 100 - (compressedFileSize / originalFileSize * 100);
   });
 
   monitor.on("finish", () => {
