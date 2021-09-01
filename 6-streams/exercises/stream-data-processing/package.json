@@ -1,0 +1,15 @@
+{
+  "name": "stream-data-processing",
+  "version": "1.0.0",
+  "description": "this exercises utilizes the following dataset: https://www.kaggle.com/jboysen/london-crime/",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-write-stream": "^2.0.0"
+  }
+}

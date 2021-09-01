@@ -16,12 +16,12 @@ const algorithms = {
   gzip: createGzip
 }
 
-async function main () {
+function main () {
   try {
     const readStream = fs.createReadStream(filename);
 
     if (algorithms[algorithmName]) {
-      await compressFile(
+      compressFile(
         readStream,
         filename,
         algorithmName,
@@ -29,7 +29,7 @@ async function main () {
       );
     } else {
       for (const algo in algorithms) {
-        await compressFile(
+        compressFile(
           readStream,
           filename,
           algo,
