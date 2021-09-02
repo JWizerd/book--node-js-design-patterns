@@ -3,7 +3,7 @@ const createMonitorStream = require("./monitor-stream");
 const fs = require("fs");
 const { pipeline } = require("stream");
 
-module.exports = async (readStream, filename, algorithmName, algorithm) => {
+module.exports = (readStream, filename, algorithmName, algorithm) => {
   const destFileName = join(__dirname, "compressed", `${algorithmName}-${filename}`);
   const monitorStream = createMonitorStream(filename, algorithmName);
 
