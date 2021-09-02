@@ -9,7 +9,7 @@ const fs = require("fs");
 const { createBrotliCompress, createGzip, createDeflate } = require("zlib");
 const filename = process.argv[2];
 const algorithmName = process.argv[3];
-const compressFile = require("./async-compression-fork-stream");
+const compressFile = require("./compression-fork-stream");
 const algorithms = {
   deflate: createDeflate,
   brotli: createBrotliCompress,
