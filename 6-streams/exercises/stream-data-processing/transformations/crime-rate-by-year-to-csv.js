@@ -5,7 +5,7 @@ class CrimeRateByYearToCSV extends BaseTransform {
     super({ objectMode: true, ...opts });
   }
 
-  _transform(yearDict, enc, done) {
+  _transform(yearDict, enc, next) {
     for (const year in yearDict) {
       this._pushWithBackpressure({
         year,
@@ -14,7 +14,7 @@ class CrimeRateByYearToCSV extends BaseTransform {
     }
 
     // this notifies the transform stream that the transformation is complete which then triggers _onComplete
-    done();
+    next();
   }
 }
 

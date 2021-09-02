@@ -5,7 +5,7 @@ class CrimeRateByBoroughToCSV extends BaseTransform {
     super({ objectMode: true, ...opts });
   }
 
-  _transform(buroughDict, enc, done) {
+  _transform(buroughDict, enc, next) {
     for (const burough in buroughDict) {
       this._pushWithBackpressure({
         burough,
@@ -14,7 +14,7 @@ class CrimeRateByBoroughToCSV extends BaseTransform {
     }
 
     // this notifies the transform stream that the transformation is complete which then triggers _onComplete
-    done();
+    next();
   }
 }
 

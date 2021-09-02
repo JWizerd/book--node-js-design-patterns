@@ -6,7 +6,7 @@ class CrimeRateByYear extends Transform {
     this.crimeRatesByYears = {};
   }
 
-  _transform(record, enc, done) {
+  _transform(record, enc, next) {
     if (this.crimeRatesByYears[record.year]) {
       this.crimeRatesByYears[record.year] += parseInt(record.value)
     } else {
@@ -14,7 +14,7 @@ class CrimeRateByYear extends Transform {
     }
 
     // this notifies the transform stream that the transformation is complete which then triggers _onComplete
-    done();
+    next();
   }
 
   /**
