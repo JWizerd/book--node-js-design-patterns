@@ -1,11 +1,9 @@
 const { Transform } = require("stream");
+const CommonCrimeSort = require("./common-crime-sort");
 
-class CommonCrimeByArea extends Transform {
-  constructor(opts) {
-    if (opts.leastCommon) {
-      this.leastCommon = true;
-    }
-
+class CommonCrimeByBurough extends Transform {
+  constructor(leastCommon, opts) {
+    this.type = leastCommon ? "min" : "max";
     super({ objectMode: true, ...opts });
     this.crimesByBurough = {};
   }
@@ -22,24 +20,23 @@ class CommonCrimeByArea extends Transform {
     next();
   }
 
-  _getMostCommonCrime() {
-    const commonCrime = null;
-    for (const key in this.crimesByBurough) {
-      const burough = this.crimesByBurough[key];
-      const values = Object.values(burough);
-      const keys = Object.keys(burough);
-      const maxCrimeRate = Math.max(...values);
-      const indexOfMaxCrimeRate = values.indexOf(maxCrimeRate);
-      if (burough[keys[indexOfMaxCrimeRate]] > commonCrime) {}
+  _getCommonCrimes() {
+    const commonCrimes = {};
+    for (const burough in this.crimesByBurough) {
+      const categoriesSorted = new CommonCrimeSort(this.crimesByBurough[burough]).sort();
+      commonCrime[burough] = {
+        category: categoriesSorted[this.type][0],
+        crimes: mostCommonCrime[this.type][1]
+      }
     }
 
-    return commonCrime;
+    return commonCrimes;
   }
 
   _flush(done) {
-    this.push(this.crimeRateByBorough)
+    this.push(this._getMostCommonCrimes())
     done();
   }
 }
 
-module.exports = CommonCrimeByArea;
+module.exports = CommonCrimeByBurough;

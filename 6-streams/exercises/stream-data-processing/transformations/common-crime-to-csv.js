@@ -9,8 +9,8 @@ class CommonCrimeByBuroughToCSV extends BaseTransform {
     for (const burough in buroughDict) {
       this._pushWithBackpressure({
         burough,
-        category,
-        crimes: buroughDict[burough][category]
+        category: buroughDict[burough].category,
+        crimes: buroughDict[burough].crimes
       });
     }
 
