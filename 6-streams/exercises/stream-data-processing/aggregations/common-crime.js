@@ -1,19 +1,39 @@
 const { Transform } = require("stream");
 
-class CrimeRateByBorough extends Transform {
+class CommonCrimeByArea extends Transform {
   constructor(opts) {
+    if (opts.leastCommon) {
+      this.leastCommon = true;
+    }
+
     super({ objectMode: true, ...opts });
-    this.crimeRateByBorough = {};
+    this.crimesByBurough = {};
   }
 
   _transform(record, enc, next) {
-    if (this.crimeRateByBorough[record.borough]) {
-      this.crimeRateByBorough[record.borough] += parseInt(record.value)
+    const { borough, major_category, value } = record;
+    if (this.crimesByBurough[borough] && this.crimesByBurough[borough][major_category]) {
+      this.crimesByBurough[borough][major_category] += parseInt(value)
     } else {
-      this.crimeRateByBorough[record.borough] = parseInt(record.value);
+      this.crimesByBurough[borough] = {}
+      this.crimesByBurough[borough][major_category] = parseInt(value)
     }
 
     next();
+  }
+
+  _getMostCommonCrime() {
+    const commonCrime = null;
+    for (const key in this.crimesByBurough) {
+      const burough = this.crimesByBurough[key];
+      const values = Object.values(burough);
+      const keys = Object.keys(burough);
+      const maxCrimeRate = Math.max(...values);
+      const indexOfMaxCrimeRate = values.indexOf(maxCrimeRate);
+      if (burough[keys[indexOfMaxCrimeRate]] > commonCrime) {}
+    }
+
+    return commonCrime;
   }
 
   _flush(done) {
@@ -22,4 +42,4 @@ class CrimeRateByBorough extends Transform {
   }
 }
 
-module.exports = CrimeRateByBorough;
+module.exports = CommonCrimeByArea;
