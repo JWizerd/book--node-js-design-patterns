@@ -1,15 +1,17 @@
 const CommonCrimeByBurough = require("./common-crime");
 const CommonCrimeSort = require("./common-crime-sort");
 
-class LeastCommonCrimeByBurough extends CommonCrimeByBurough {
+class MostCommonCrimeByBurough extends CommonCrimeByBurough {
   _getCommonCrimes() {
     const commonCrimes = {};
     for (const burough in this.crimesByBurough) {
       const crimeSort = new CommonCrimeSort(this.crimesByBurough[burough]);
       crimeSort.sort();
-      commonCrimes[burough] = {
-        category: crimeSort.min[0],
-        crimes: crimeSort.min[1]
+      if (crimeSort.max[1] > 0) {
+        commonCrimes[burough] = {
+          category: crimeSort.max[0],
+          crimes: crimeSort.max[1]
+        }
       }
     }
 
@@ -17,4 +19,4 @@ class LeastCommonCrimeByBurough extends CommonCrimeByBurough {
   }
 }
 
-module.exports = LeastCommonCrimeByBurough;
+module.exports = MostCommonCrimeByBurough;

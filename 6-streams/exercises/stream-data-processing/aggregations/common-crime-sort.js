@@ -1,6 +1,10 @@
 class CommonCrimeSort {
   constructor(object) {
-    this.entries = Object.entries(object).sort((prev, next) => prev[1] - next[1]);
+    this.entries = Object.entries(object);
+  }
+
+  sort() {
+    this.entries = this.entries.sort((prev, next) => prev[1] - next[1]);
   }
 
   get max() {
